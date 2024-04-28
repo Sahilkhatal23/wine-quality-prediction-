@@ -91,7 +91,7 @@ def csv():
     if request.method == 'POST':
         try:
             #reading csv file
-            uploaded_file = request.files['upload.html']
+            uploaded_file = request.files['upload_file']
             filename = uploaded_file.filename
 
             #procede only if file is available
@@ -127,7 +127,7 @@ def csv():
                     list_of_files = os.listdir(csv_files)
                     for csfile in list_of_files:
                         try:
-                            os.remove("csv_file" + csfile)
+                            os.remove("./csv_file/" + csfile)
                         except Exception as e:
                             print('error in deleting:  ', e)
 
@@ -136,7 +136,7 @@ def csv():
                     data['Prediction Of Quality Of Wine'] = prediction
 
                     #saving pandas dataframe as a csv file in csv_file folder
-                    result_file = './templates/result_output_data.csv'
+                    result_file = './csv_file/result_output_data.csv'
                     data.to_csv(result_file)
 
                     #plot for prediction analysis
@@ -144,11 +144,11 @@ def csv():
                     total_pridiction = sns.catplot(x='Prediction Of Quality Of Wine', kind='count', data=data)
 
                     # deleting previous graph images present in statistics folder
-                    image_files = './templates'
+                    image_files = './static/statistics'
                     list_of_files = os.listdir(image_files)
                     for imgfile in list_of_files:
                         try:
-                            os.remove("./templates" + imgfile)
+                            os.remove("./static/statistics/" + imgfile)
                         except Exception as e:
                             print('error in deleting:  ', e)
 
